@@ -623,7 +623,7 @@
         </button>
     </div>
 
-    <!-- PAGE 2: MULTI-STEP FORM -->
+    <!-- PAGE 2: MULTI-STEP FORM (UPDATED: removed "Living with family" and "idea description") -->
     <div class="page" id="page-form">
         <div class="form-header">
             <h2>Application Form</h2>
@@ -699,16 +699,11 @@
                     <label class="radio-card">
                         <input type="radio" name="housing" value="Renting" required onchange="selectRadio(this)"> <span>Renting an apartment</span>
                     </label>
-                    <label class="radio-card">
-                        <input type="radio" name="housing" value="Living with family" required onchange="selectRadio(this)"> <span>Living with family</span>
-                    </label>
+                    <!-- "Living with family" removed -->
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>Briefly describe your idea</label>
-                <textarea id="ideaDesc" class="form-control" placeholder="Tell us about your solar/clean energy project..." required></textarea>
-            </div>
+            <!-- "Briefly describe your idea" field removed entirely -->
 
             <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
                 Submit Application <i class="fa-solid fa-paper-plane"></i>
@@ -950,9 +945,10 @@
         }, 50);
     }
 
-    // Share Gate Logic (10 Shares required)
+    // Share Gate Logic (10 Shares required) - UPDATED share message (removed funding, mentorship, deadline)
     let shareClicks = 0;
-    const shareText = "*SOLAR POWER NIGERIA YOUTH GRANT 2026*%0A%0AYoung Nigerians can now apply for a *₦390,000 grant* to implement solar/clean energy ideas in their homes.%0A%0A✅ ₦390,000 project funding%0A✅ Mentorship included%0A✅ Deadline: 24 November 2026%0A%0ACheck if you qualify here 👇%0Ahttps://metaink.xyz/Solar-Power-Nigeria-Youth-Grant%0A%0A_Share with other young people so they don’t miss this._";
+    const shareText = "*SOLAR POWER NIGERIA YOUTH GRANT 2026*%0A%0AYoung Nigerians can now apply for a *₦390,000 grant* to implement solar/clean energy ideas in their homes.%0A%0A✅ Mentorship included%0A%0ACheck if you qualify here 👇%0Ahttps://metaink.xyz/Solar-Power-Nigeria-Youth-Grant%0A%0A_Share with other young people so they don’t miss this._";
+    // Note: The line "✅ ₦390,000 project funding" and "✅ Deadline: 24 November 2026" have been removed from the original message as requested.
     const shareUrl = "whatsapp://send?text=" + shareText;
 
     function handleShare() {
